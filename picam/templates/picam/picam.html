@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+{% load django_bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPI WebCAM Test</title>
+    <script>
+        async function updateImage() {
+            while (true) {
+                const response = await fetch(window.location.href);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(text, 'text/html');
+                const imgSrc = doc.querySelector('#video-stream').src;
+                document.querySelector('#video-stream').src = imgSrc;
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+        }
+        window.onload = updateImage;
+    </script>
+</head>
+<body>
+    <div class="col-12 m-auto text-center">
+        <div class="m-auto text-center mb-3">
+            <a href="/" class="logo"><img src="/static/images/logo.png" height="40" alt="" /></a>
+            <a href="/sensor" class="btn btn-primary">Sensor Data</a>
+        </div>
+    </div>
+    <section>
+        <h1 class="text-center">RPI WebCAM Test</h1>
+
+        <div class="d-flex justify-content-center align-items-center">
+            {% if current_frame_base64 %}
+                <img id="video-stream" src="data:image/jpeg;base64,{{ current_frame_base64 }}" alt="Live Video" style="width: 100%; max-width: 600px;">
+            {% else %}
+                <p>Waiting for video feed...</p>
+            {% endif %}
+        </div>
+    </section>
+</body>
+</html>
