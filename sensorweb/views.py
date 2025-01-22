@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import json
 import random
 import time
@@ -10,6 +11,10 @@ from django.views.generic import View
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
 from paho.mqtt import client as mqtt_client
+=======
+from django.http import JsonResponse
+from django.shortcuts import render
+>>>>>>> 00619e3 (remove unused imports)
 from .models import sensors
 
 
