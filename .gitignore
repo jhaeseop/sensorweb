@@ -1,15 +1,4 @@
 .env
-<<<<<<< HEAD
-
-media/
-
-migrations/
-
-__pycache__/
-
-.idea/
-
-=======
 .git
 
 media/
@@ -18,7 +7,6 @@ static/
 
 __pycache__/
 .idea/
->>>>>>> 00619e3 (remove unused imports)
 .vscode/
 
 *.log
