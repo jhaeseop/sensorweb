@@ -1,11 +1,5 @@
 from django.shortcuts import render
 import paho.mqtt.client as mqtt
-<<<<<<< HEAD
-import base64
-import cv2
-import numpy as np
-=======
->>>>>>> 00619e3 (remove unused imports)
 import threading
 
 

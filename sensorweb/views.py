@@ -1,20 +1,5 @@
-<<<<<<< HEAD
-import json
-import random
-import time
-import requests
-from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
-from django.shortcuts import render
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from django.views.generic import View
-from django.views.generic import TemplateView
-from chartjs.views.lines import BaseLineChartView
-from paho.mqtt import client as mqtt_client
-=======
 from django.http import JsonResponse
 from django.shortcuts import render
->>>>>>> 00619e3 (remove unused imports)
 from .models import sensors
 
 
