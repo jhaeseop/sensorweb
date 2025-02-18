@@ -7,6 +7,6 @@ urlpatterns = [
     path('', views.index),
     path('samples/<int:num_page>/', views.pages_view, name='pages_view'),
     path('sub/<int:n_page>/<int:n_sect>/', views.sub_view, name='sub_view'),
-    path('fileupload/', ful_views.fileUpload, name='fileupload'),
-    path('sensor', views.sensor, name='sensor'),
+    path('sensor/', views.sensor, name='sensor'),
+    path('tensor/', views.tensor, name='tensor'),
 ]

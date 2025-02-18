@@ -186,3 +186,6 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 개발 환경에서는 COOP 헤더를 제거합니다.
+if DEBUG:
+    SECURE_CROSS_ORIGIN_OPENER_POLICY = None

@@ -8,6 +8,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPI WebCAM Test</title>
+</head>
+<body class="bg-dark">
+    <!-- 네비게이션 바 -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand bg-light" href="/">
+                <img src="{% static 'images/logo.png' %}" height="40px" alt="Logo">
+            </a>
+            <a href="/sensor" class="btn btn-primary">Sensor Data</a>
+        </div>
+    </nav>
+    <section>
+        <h1 class="text-center text-white">RPI WebCAM Test</h1>
+
+        <div class="d-flex justify-content-center align-items-center">
+            {% if current_frame_base64 %}
+                <img id="video-stream" src="data:image/jpeg;base64,{{ current_frame_base64 }}" alt="Live Video" style="width: 100%; max-width: 800px;">
+            {% else %}
+                <p>Waiting for video feed...</p>
+            {% endif %}
+        </div>
+    </section>
+
     <script>
         async function updateImage() {
             while (true) {
@@ -22,24 +45,59 @@
         }
         window.onload = updateImage;
     </script>
-</head>
-<body>
-    <div class="col-12 m-auto text-center">
-        <div class="m-auto text-center mb-3">
-            <a href="/" class="logo"><img src="/static/images/logo.png" height="40" alt="" /></a>
-            <a href="/sensor" class="btn btn-primary">Sensor Data</a>
-        </div>
-    </div>
-    <section>
-        <h1 class="text-center">RPI WebCAM Test</h1>
 
-        <div class="d-flex justify-content-center align-items-center">
-            {% if current_frame_base64 %}
-                <img id="video-stream" src="data:image/jpeg;base64,{{ current_frame_base64 }}" alt="Live Video" style="width: 100%; max-width: 600px;">
-            {% else %}
-                <p>Waiting for video feed...</p>
-            {% endif %}
-        </div>
-    </section>
+
+
+  <!-- Load tensorflow & the coco-ssd model. -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@1.1.0"></script>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById("canvas");
+    const context = canvas.getContext("2d");
+
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(function (stream) {
+        video.srcObject = stream;
+      });
+
+    cocoSsd.load().then(model => {
+      document.getElementById('loader').style.display = "none";
+      document.getElementById('status').innerHTML = '데이터 로딩이 완료되었습니다';
+      //document.getElementById('status').style.display = "none";
+      video.onloadeddata = (event) => {
+        predict();
+      };
+      function predict() {
+
+        console.log(video.width, video.height);
+        canvas.width = video.width;
+        canvas.height = video.height;
+        //     context.drawImage(video, 0, 0);
+        model.detect(video).then(predictions => {
+          console.log('Predictions: ', predictions);
+
+
+          for (let i = 0; i < predictions.length; i++) {
+            context.beginPath();
+            context.lineWidth = 1;
+            //party mode
+            const color = Math.floor(Math.random() * 16777215).toString(16);
+            context.strokeStyle = '#' + color
+            //            context.strokeStyle = "#2fff00"
+            context.rect(...predictions[i].bbox);
+            context.stroke();
+            context.font = '24px Arial';
+            context.fillStyle = '#' + color;
+            context.fillText(predictions[i].class + ' ' + parseInt(predictions[i].score * 100) + '%', predictions[i].bbox[0], predictions[i].bbox[1]);
+
+          }
+        });
+        requestAnimationFrame(predict);
+      }
+    });
+  </script>
+
 </body>
 </html>

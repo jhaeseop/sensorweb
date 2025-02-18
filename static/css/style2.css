@@ -1101,7 +1101,6 @@ transition: all 0.3s ease;
 .ceogreeting .ceo2 img{width:30%;}
 .ceogreeting .ceo3  {float:right; font-size:15px;width:65%;margin-left:1%;line-height:180%;padding-right:20px;}
 .ceogreeting .ceo4  {float:left; font-size:18px;text-align:left;width:600px;margin-right:2%;line-height:180%; font-weight:600;margin-top:20px;text-align:right;}
-.ceo4bg  {float:right;width:600px;height:80px;margin-right:2%;background-image: url(/images/sign.jpg);background-repeat: no-repeat;background-position:top right;text-align:right;}
 .product_layout {max-width:1280px;width:100%;margin:0 auto; position:relative; box-sizing:border-box; padding:0 10px;padding-top:40px;}
 .product_layout  .pimg  {min-height:228px;height:228px}
 .product_layout  .work_view_more_left {width:7px;height:12px;}
@@ -2062,7 +2061,6 @@ footer .ftlogo img {clear:both;width:180px;height:46px;margin:0 auto; padding-bo
 .ceogreeting .ceo2 img{clear:both;width:380px;	height:400px;margin:0 auto;}
 .ceogreeting .ceo3  {clear: both;font-size:13px;width:100%;padding:0px;line-height:160%;height:560px;margin-top:20px;}
 .ceogreeting .ceo4  {clear:both;; font-size:12px ;text-align:left;width:420px;height:30px;line-height:120%; }
-.ceo4bg  { clear:both;width:400px ; height:40px;margin:0 auto;background-image: url(/images/sign.jpg);background-repeat: no-repeat;background-position:top right;}
 .font-29 {font-size:16px ;font-weight:600;}
 .font-blue {font-size:16px ;}
 .font-blue2 {font-size:16px ;}

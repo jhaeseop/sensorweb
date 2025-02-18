@@ -1,5 +1,15 @@
-from django.http import JsonResponse
+import json
+import random
+import time
+import requests
+from django.http import HttpResponse, JsonResponse, StreamingHttpResponse
 from django.shortcuts import render
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.views.generic import View
+from django.views.generic import TemplateView
+from chartjs.views.lines import BaseLineChartView
+from paho.mqtt import client as mqtt_client
 from .models import sensors
 
 
@@ -19,12 +29,14 @@ def index(request):
 def sensor(request):
     # AJAX 요청 처리 또는 템플릿 렌더링
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        data = sensors.objects.order_by('-time')[:60]
+        data = sensors.objects.order_by('-time')[:180]
         return JsonResponse({'data': list(data.values())})
     else:
-        return render(request, 'sensorweb/table_chart.html')  # 템플릿 렌더링
+        return render(request, 'sensorweb/table_chart2.html')  # 템플릿 렌더링
 
 
+def tensor(request):
+    return render(request, 'sensorweb/tf_test.html')
 
 def pages_view(request, num_page):
     return render(request, f'samples/sample{num_page}.html')
